@@ -1,17 +1,13 @@
-# Проект 4: Место
+# Mesto
 
-### Обзор
+### [Посмотреть](https://vanilla64.github.io/mesto/)
 
-* Figma
-* Картинки
+### Проект верстки учебного макета в [Figma](https://www.figma.com/file/StZjf8HnoeLdiXS7dYrLAh/JavaScript.-Sprint-4), для отработки навыков программирования на языке **JavaScript** на курсе **Web-разработчик** от [Яндекс.Практикума](https://praktikum.yandex.ru) 
 
-**Figma**
+#### Технологии используемые в проекте: 
+* HTML;
+* CSS;
+* БЭМ;
+* JavaScript
 
-* [Ссылка на макет в Figma](https://www.figma.com/file/StZjf8HnoeLdiXS7dYrLAh/JavaScript.-Sprint-4)
-
-**Картинки**
-
-Доставать картинки предстоит из Фигмы. Это расхожая практика, поэтому полезно потренироваться.
-Не забудьте [оптимизировать картинки](https://tinypng.com/), чтобы ваш сайт загружался быстрее.
-
-Удачи!
+##### Сергей Машин [VK](https://vk.com/vanilla64)
