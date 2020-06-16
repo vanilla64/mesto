@@ -1,0 +1,18 @@
+@import url('./_text/popup__input_text_name.css');
+@import url('./_text/popup__input_text_job.css');
+
+.popup__input {
+  margin: 0 0 30px;
+  padding: 0 0 13px;
+  height: 27px;
+  border: none;
+  border-bottom: 1px solid rgba(0,0,0,.2);
+  outline-style: none;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 17px;
+}
+
+.popup__input:last-of-type {
+  margin: 0;
+}

@@ -1,0 +1,12 @@
+@import url('./__image/element__image.css');
+@import url('./__content/element__content.css');
+@import url('./__heading/element__heading.css');
+@import url('./__like-btn/element__like-btn.css');
+
+.element {
+  width: 100%;
+  background-color: #fff;
+  border-radius: 10px;
+  box-sizing: border-box;
+  overflow: hidden;
+}
