@@ -1,0 +1,39 @@
+.profile__handlers {
+  padding: 35px 0 0;
+  width: 47%;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flex;
+  display: -o-flex;
+  display: flex;
+  -ms-align-items: baseline;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+
+@media screen and (max-width: 1105px) {
+  .profile__handlers {
+    width: 40%;
+  }
+}
+
+@media screen and (max-width: 805px) {
+  .profile__handlers {
+    width: 40%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .profile__handlers {
+    width: 100%;
+    padding: 36px 0 0;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .profile__handlers {
+    
+  }
+}

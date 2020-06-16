@@ -1,0 +1,16 @@
+.profile__avatar {
+  width: 127px;
+  border-radius: 50%;
+}
+
+@media screen and (max-width: 768px) {
+  .profile__avatar {
+    width: 160px;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .profile__avatar {
+    width: 127px;
+  }
+}
