@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="decription" content="Учебный проект. Спринт №4">
+  <meta name="keywords" content="html css js обучение">
+  <meta name="author" content="Сергей Машин">
+  <title>Mesto Russia</title>
+  <link rel="stylesheet" href="./pages/index.css">
+</head>
+<body class="root">
+  <div class="page">
+<!-- Блок header -->
+    <header class="header">
+      <img class="header__logo" src="./images/logo.svg" alt="Логотип">
+    </header>
+    <main class="content">
+<!-- Блок profile -->
+      <section class="profile">
+        <div class="profile__user-info">
+          <img class="profile__avatar" src="./images/avatar.jpg" alt="Аватар">
+          <div class="profile__description">
+            <h1 class="profile__title">Жак-Ив Кусто</h1>
+            <p class="profile__subtitle">Исследователь океана</p>
+          </div>
+        </div>
+        <div class="profile__handlers">
+          <button class="profile__edit-button"></button>
+          <button class="profile__add-button"></button> 
+        </div>
+      </section>
+<!-- Блок elements -->
+      <section class="elements">
+        <ul class="elements__list">
+          <li class="element">
+            <img class="element__image" 
+                 src="./images/kirill-pershin-1556355-unsplash.jpg" 
+                 alt="Карачаевск">
+            <div class="element__content">
+              <h2 class="element__heading">Карачаевск</h2>
+              <img class="element__like-btn" src="./images/like-btn.svg" alt="Лайк">
+            </div>     
+          </li>
+          <li class="element">
+            <img class="element__image" 
+                 src="./images/kirill-pershin-1404681-unsplash.jpg" 
+                 alt="Гора Эльбрус">
+            <div class="element__content">
+              <h2 class="element__heading">Гора Эльбрус</h2>
+              <img class="element__like-btn" src="./images/like-btn.svg" alt="Лайк">
+            </div>     
+          </li>
+          <li class="element">
+            <img class="element__image" 
+                 src="./images/kirill-pershin-1404681-unsplash.jpg" 
+                 alt="Домбай">
+            <div class="element__content">
+              <h2 class="element__heading">Домбай</h2>
+              <img class="element__like-btn" src="./images/like-btn.svg" alt="Лайк">
+            </div>     
+          </li>
+          <li class="element">
+            <img class="element__image" 
+                 src="./images/kirill-pershin-1404681-unsplash.jpg" 
+                 alt="Домбай">
+            <div class="element__content">
+              <h2 class="element__heading">Домбай</h2>
+              <img class="element__like-btn" src="./images/like-btn.svg" alt="Лайк">
+            </div>     
+          </li>
+          <li class="element">
+            <img class="element__image" 
+                 src="./images/kirill-pershin-1404681-unsplash.jpg" 
+                 alt="Домбай">
+            <div class="element__content">
+              <h2 class="element__heading">Домбай</h2>
+              <img class="element__like-btn" src="./images/like-btn.svg" alt="Лайк">
+            </div>     
+          </li>
+          <li class="element">
+            <img class="element__image" 
+                 src="./images/kirill-pershin-1404681-unsplash.jpg" 
+                 alt="Домбай">
+            <div class="element__content">
+              <h2 class="element__heading">Домбай</h2>
+              <img class="element__like-btn" src="./images/like-btn.svg" alt="Лайк">
+            </div>     
+          </li>
+        </ul>
+      </section>
+    </main>  
+<!-- Блок footer -->
+    <footer class="footer">
+      <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
+    </footer>
+  </div>
+<!-- Блок popup -->
+  <section class="popup">
+    <div class="popup__container">
+      <h2 class="popup__title">Редактировать профиль</h2>
+      <div class="popup__close-btn"></div>
+      <form class="popup__form">
+        <input class="popup__input popup__input_text_name" type="text" placeholder="Имя">
+        <input class="popup__input popup__input_text_job" type="text" placeholder="О себе">
+        <button class="popup__btn" type="submit">Сохранить</button>
+      </form>
+    </div>
+  </section>
+  <script src="./scripts/index.js"></script>
+</body>
+</html>
