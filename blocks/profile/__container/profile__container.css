@@ -1,0 +1,19 @@
+.profile__container {
+  grid-column: 4 / 5;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flex;
+  display: -o-flex;
+  display: flex;
+  justify-content: flex-end;
+  -ms-align-items: center;
+  align-items: center;
+}
+
+@media screen and (max-width: 768px) {
+  .profile__container {
+    width: 100%;
+    grid-column: 1 / 3;
+    grid-row: 3 / 4;
+  }
+}

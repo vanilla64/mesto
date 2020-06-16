@@ -11,20 +11,23 @@
   transition: 0.2s;
   padding: 0;
   background-color: transparent;
+  grid-column: 3 / 4;
+  -ms-align-self: center;
+  align-self: center;
+  transform: translate(0, -7px);
 }
 
 .profile__edit-button:hover {
   opacity: .6;
 }
 
+
+
 @media screen and (max-width: 768px) {
   .profile__edit-button {
-    width: 24px;
-    height: 24px;
-    
-    position: absolute;
-    top: 52%;
-    right: 0;
+    grid-column: 2 / 3;
+    grid-row: 2/ 3;
+    transform: translate(0, -16px);
   }
 }
 
@@ -32,8 +35,6 @@
   .profile__edit-button {
     width: 18px;
     height: 18px;
-    position: absolute;
-    top: 50%;
-    right: 7%;
+    transform: translate(-20px, -15px);
   }
 }
