@@ -5,8 +5,8 @@
   width: 40px;
   height: 40px;
   position: absolute;
-  top: -35px;
-  right: -35px;
+  top: -38px;
+  right: -38px;
   cursor: pointer;
   transition: .3s;
 }
@@ -17,14 +17,9 @@
 
 @media screen and (max-width: 425px) {
   .popup__close-btn {
-    position: absolute;
-    top: 50px;
-    right: 15px;
-    background-color: #000;
-    border-radius: 50%;
-  }
-
-  .popup__close-btn:hover {
-    background-color: rgba(0,0,0,.8);
+    width: 30px;
+    height: 30px;
+    top: -27px;
+    right: -27px;
   }
 }

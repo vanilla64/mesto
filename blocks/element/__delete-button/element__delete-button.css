@@ -1,12 +1,15 @@
-.element__like-btn {
-  background-image: url('../../../images/like-btn.svg');
+.element__delete-button {
+  background-image: url('../../../../images/delete-card-btn.svg');
+  width: 18px;
+  height: 19px;
+  position: absolute;
+  top: 24px;
+  right: 15px;
   background-repeat: no-repeat;
   -webkit-background-size: contain;
   background-size: contain;
   outline-style: none;
   border: none;
-  width: 20px;
-  height: 18px;
   cursor: pointer;
   transition: 0.2s;
   padding: 0;
@@ -15,6 +18,6 @@
   padding: 0;
 }
 
-.element__like-btn:hover {
-  opacity: .6;
+.element__delete-button:hover {
+  opacity: 0.6;
 }

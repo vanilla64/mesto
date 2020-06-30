@@ -17,3 +17,12 @@
 .popup__btn:hover {
   background: rgba(0, 0, 0, 0.8);
 }
+
+@media screen and (max-width: 425px) {
+  .popup__btn {
+    margin: 36px 0 0;
+    height: 40px;
+    font-size: 14px;
+    line-height: 17px;
+  }
+}
