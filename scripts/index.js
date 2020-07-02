@@ -26,9 +26,9 @@ const initialCards = [
 ];
 
 const popups = document.querySelectorAll('.popup')
-const popupEditProfile = popups[0]
-const popupAddCard = popups[1]
-const popupPhoto = popups[2]
+const popupEditProfile = document.querySelector('.popup_type_edit-profile')
+const popupAddCard = document.querySelector('.popup_type_add-card')
+const popupPhoto = document.querySelector('.popup_type_photo')
 
 const editProfileBtn = document.querySelector('.profile__edit-button')
 const addCardBtn = document.querySelector('.profile__add-button')
