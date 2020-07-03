@@ -25,7 +25,6 @@ const initialCards = [
   }
 ];
 
-const popups = document.querySelectorAll('.popup')
 const popupEditProfile = document.querySelector('.popup_type_edit-profile')
 const popupAddCard = document.querySelector('.popup_type_add-card')
 const popupPhoto = document.querySelector('.popup_type_photo')
@@ -48,33 +47,41 @@ const inputAbout = document.querySelector('.popup__input_text_job')
 const inputLocation = document.querySelector('.popup__input_text_location')
 const inputLink = document.querySelector('.popup__input_text_link')
 
+const cardList = document.querySelector('.elements__list')
+const cardTemplate = document.querySelector('#card-template').content
+
 let initialCardsReverse = initialCards.reverse()
 
 //////////////////////////////
 const addNewCard = function (location, link) {
-  const cardList = document.querySelector('.elements__list')
-  const cardTemplate = document.querySelector('#card-template').content
   const newCard = cardTemplate.cloneNode(true)
 
   newCard.querySelector('.element__title').textContent = location
   newCard.querySelector('.element__image').setAttribute('src', link)
   newCard.querySelector('.element__image').setAttribute('alt', location)
-
   newCard.querySelector('.element__delete-button').addEventListener('click', deleteCard)
   newCard.querySelector('.element__like-button').addEventListener('click', likeToggle)
   newCard.querySelector('.element__image').addEventListener('click', openPhotoPopup)
-  cardList.prepend(newCard)
+  return newCard
 }
 
-for (i = 0; i < initialCardsReverse.length; i++) {
-  addNewCard(initialCardsReverse[i].name, initialCardsReverse[i].link)
+function renderNewCard(location, link) {
+  cardList.prepend(addNewCard(location, link))
 }
+
+initialCardsReverse.forEach(function (item) {
+  renderNewCard(item.name, item.link)
+})
 
 //////////////////////////////
 function likeToggle(evt) {
   const likedBtn = evt.target.closest('.element__like-button')
   likedBtn.classList.toggle('element__like-button_pressed')
   console.log(likedBtn)
+}
+
+function popupToggle(popup) {
+  popup.classList.toggle('popup_opened')
 }
 
 function deleteCard(evt) {
@@ -95,7 +102,7 @@ function openPhotoPopup(evt, location, link) {
   popupImg.setAttribute('alt', location)
   popupText.textContent = location
 
-  popupPhoto.classList.add('popup_opened')
+  popupToggle(popupPhoto)
 }
 
 function closePhotoPopup() {
@@ -103,12 +110,12 @@ function closePhotoPopup() {
   popupPhoto.querySelector('.popup__image').setAttribute('alt', '')
   popupPhoto.querySelector('.popup__description').textContent = ''
 
-  popupPhoto.classList.remove('popup_opened')
+  popupToggle(popupPhoto)
 }
 
 function openPopupEdit() {
-  popupEditProfile.classList.add('popup_opened')
-  
+  popupToggle(popupEditProfile)
+
   inputName.value = profileTitle.textContent
   inputAbout.value = profileSubtitle.textContent
 }
@@ -116,7 +123,7 @@ function openPopupEdit() {
 function closePopupEdit() {
   inputName.value = ''
   inputAbout.value = ''
-  popupEditProfile.classList.remove('popup_opened')
+  popupToggle(popupEditProfile)
 }
 
 function profileFormSubmit(evt) {
@@ -125,29 +132,29 @@ function profileFormSubmit(evt) {
   profileTitle.textContent = inputName.value
   profileSubtitle.textContent = inputAbout.value
 
-  popupEditProfile.classList.remove('popup_opened')
+  popupToggle(popupEditProfile)
 }
 
 function openPopupAddCard() {
   inputLocation.value = ''
   inputLink.value = ''
 
-  popupAddCard.classList.add('popup_opened')
+  popupToggle(popupAddCard)
 }
 
 function closePopupAddCard() {
-  popupAddCard.classList.remove('popup_opened')
+  popupToggle(popupAddCard)
 }
 
 function addCardFormSubmit(evt) {
   evt.preventDefault()
 
-  addNewCard(inputLocation.value, inputLink.value)
+  renderNewCard(inputLocation.value, inputLink.value)
 
   inputLocation.value = ''
   inputLink.value = ''
-  
-  popupAddCard.classList.remove('popup_opened')
+
+  popupToggle(popupAddCard)
 }
 
 //////////////////////////////
