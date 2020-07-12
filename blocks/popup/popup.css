@@ -2,10 +2,14 @@
 @import url('./__title/popup__title.css');
 @import url('./__close-btn/popup__close-btn.css');
 @import url('./__form/popup__form.css');
+@import url('./__label/popup__label.css');
 @import url('./__input/popup__input.css');
+@import url('./__input/_type/popup__input_type_error.css');
+@import url('./__error/popup__error.css');
 @import url('./__image/popup__image.css');
 @import url('./__description/popup__description.css');
 @import url('./__btn/popup__btn.css');
+@import url('./__btn/_disabled/popup__btn_disabled.css');
 @import url('./_type/popup_type_edit-profile.css');
 @import url('./_type/popup_type_add-card.css');
 @import url('./_type/popup_type_photo.css');

@@ -25,6 +25,7 @@ const initialCards = [
   }
 ];
 
+const popups = document.querySelectorAll('.popup')
 const popupEditProfile = document.querySelector('.popup_type_edit-profile')
 const popupAddCard = document.querySelector('.popup_type_add-card')
 const popupPhoto = document.querySelector('.popup_type_photo')
@@ -77,7 +78,6 @@ initialCardsReverse.forEach(function (item) {
 function likeToggle(evt) {
   const likedBtn = evt.target.closest('.element__like-button')
   likedBtn.classList.toggle('element__like-button_pressed')
-  console.log(likedBtn)
 }
 
 function popupToggle(popup) {
@@ -87,6 +87,20 @@ function popupToggle(popup) {
 function deleteCard(evt) {
   const deletedCard = evt.target.closest('.element')
   deletedCard.remove()
+}
+
+function resetInputsValues(form) {
+  const inputList = Array.from(form.querySelectorAll('.popup__input'))
+  inputList.forEach((input) => {
+    input.value = ''
+  })
+}
+
+function resetInputError(form) {
+  const inputList = Array.from(form.querySelectorAll('.popup__input'))
+  inputList.forEach((input) => {
+    hideInputError(form, input)
+  })
 }
 
 function openPhotoPopup(evt, location, link) {
@@ -115,14 +129,24 @@ function closePhotoPopup() {
 
 function openPopupEdit() {
   popupToggle(popupEditProfile)
-
   inputName.value = profileTitle.textContent
   inputAbout.value = profileSubtitle.textContent
+  hideInputError(popupEditProfile, inputName)
+  hideInputError(popupEditProfile, inputAbout)
+  actualButtonState(popupEditProfile)
+  enableValidation({
+    formSelector: '.popup__form',
+    inputSelector: '.popup__input',
+    submitButtonSelector: '.popup__btn',
+    inactiveButtonClass: 'popup__btn_disabled',
+    inputErrorClass: 'popup__input_type_error',
+    errorClass: 'popup__error_visible'
+  })
 }
 
 function closePopupEdit() {
-  inputName.value = ''
-  inputAbout.value = ''
+  resetInputsValues(profileForm)
+  resetInputError(popupEditProfile)
   popupToggle(popupEditProfile)
 }
 
@@ -136,10 +160,18 @@ function profileFormSubmit(evt) {
 }
 
 function openPopupAddCard() {
-  inputLocation.value = ''
-  inputLink.value = ''
-
+  resetInputsValues(popupAddCard)
+  resetInputError(popupAddCard)
   popupToggle(popupAddCard)
+  actualButtonState(popupAddCard)
+  enableValidation({
+    formSelector: '.popup__form',
+    inputSelector: '.popup__input',
+    submitButtonSelector: '.popup__btn',
+    inactiveButtonClass: 'popup__btn_disabled',
+    inputErrorClass: 'popup__input_type_error',
+    errorClass: 'popup__error_visible'
+  })
 }
 
 function closePopupAddCard() {
@@ -150,10 +182,7 @@ function addCardFormSubmit(evt) {
   evt.preventDefault()
 
   renderNewCard(inputLocation.value, inputLink.value)
-
-  inputLocation.value = ''
-  inputLink.value = ''
-
+  resetInputsValues(popupAddCard)
   popupToggle(popupAddCard)
 }
 
@@ -167,3 +196,34 @@ popupAddCardCloseBtn.addEventListener('click', closePopupAddCard)
 
 profileForm.addEventListener('submit', profileFormSubmit)
 addCardForm.addEventListener('submit', addCardFormSubmit)
+
+////////////////////////////////////////////////////////////////////////////////
+function closeOverlay(evt, popup) {
+  if (evt.target === evt.currentTarget) {
+    popupToggle(popup)
+  }
+}
+
+function isEscBtn(item, evt) {
+  return item.classList.contains('popup_opened') && evt.key === 'Escape'
+}
+
+function closePopupKeyEscape(evt) {
+  const popupsArr = Array.from(popups)
+  popupsArr.forEach((item) => {
+    if (isEscBtn(item, evt)) {
+      popupToggle(item)
+    }
+  })
+}
+
+popupEditProfile.addEventListener('click', (evt) => 
+  closeOverlay(evt, popupEditProfile))
+
+popupAddCard.addEventListener('click', (evt) =>
+  closeOverlay(evt, popupAddCard))
+
+popupPhoto.addEventListener('click', (evt) =>
+  closeOverlay(evt, popupPhoto))
+
+document.addEventListener('keydown', (evt) => closePopupKeyEscape(evt))
