@@ -51,7 +51,7 @@ const inputLink = document.querySelector('.popup__input_text_link')
 const cardList = document.querySelector('.elements__list')
 const cardTemplate = document.querySelector('#card-template').content
 
-let initialCardsReverse = initialCards.reverse()
+const initialCardsReverse = initialCards.reverse()
 
 //////////////////////////////
 const addNewCard = function (location, link) {
