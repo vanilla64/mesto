@@ -151,16 +151,18 @@ function openPopupEdit() {
   openPopup(popupEditProfile)
   inputName.value = profileTitle.textContent
   inputAbout.value = profileSubtitle.textContent
-  hideInputError(popupEditProfile, inputName)
-  hideInputError(popupEditProfile, inputAbout)
+  hideInputError(popupEditProfile, inputName, validationConfig)
+  hideInputError(popupEditProfile, inputAbout, validationConfig)
   buttonStateToggle(
-    (Array.from(popupEditProfile.querySelectorAll(validationConfig.inputSelector))), 
-    popupEditProfile.querySelector(validationConfig.submitButtonSelector))
+    Array.from(popupEditProfile.querySelectorAll(validationConfig.inputSelector)), 
+    popupEditProfile.querySelector(validationConfig.submitButtonSelector), 
+    validationConfig
+  )
 }
 
 function closePopupEdit() {
   resetInputsValues(profileForm)
-  resetInputError(popupEditProfile)
+  resetInputError(popupEditProfile, validationConfig)
   closePopup(popupEditProfile)
 }
 
@@ -175,11 +177,12 @@ function profileFormSubmit(evt) {
 
 function openPopupAddCard() {
   resetInputsValues(popupAddCard)
-  resetInputError(popupAddCard)
+  resetInputError(popupAddCard, validationConfig)
   openPopup(popupAddCard)
   buttonStateToggle(
     Array.from(popupAddCard.querySelectorAll(validationConfig.inputSelector)),
-    popupAddCard.querySelector(validationConfig.submitButtonSelector)
+    popupAddCard.querySelector(validationConfig.submitButtonSelector), 
+    validationConfig
   )
 }
 
