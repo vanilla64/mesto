@@ -1,7 +1,6 @@
 import {
   validationConfig, 
-  initialCards, 
-  popups, 
+  initialCards,  
   popupEditProfile, 
   popupAddCard, 
   popupPhoto, 
@@ -18,9 +17,17 @@ import {
   inputAbout, 
   inputLocation, 
   inputLink, 
-  cardList } from '../scripts/constants.js';  
-import { Card } from '../scripts/Card.js';
-import { FormValidator } from '../scripts/FormValidator.js';
+  cardList } from './constants.js';
+
+import { 
+  openPopup, 
+  closePopup, 
+  closeOverlay, 
+  resetInputsValues,  
+  resetInputError } from "./utils.js";
+  
+import { Card } from './Card.js';
+import { FormValidator } from './FormValidator.js';
 
 //////////////////////////////
 const initialCardsReverse = initialCards.reverse()
@@ -41,52 +48,10 @@ function renderCard(location, link, selector) {
   cardList.prepend(newCard.renderNewCard())
 }
 
-function closeOverlay(evt, popup) {
-  if (evt.target === evt.currentTarget) {
-    closePopup(popup)
-  }
-}
-
-function isEscBtn(item, evt) {
-  return item.classList.contains('popup_opened') && evt.key === 'Escape'
-}
-
-function closePopupKeyEscape(evt) {
-  const popupsArr = Array.from(popups)
-  popupsArr.forEach((item) => {
-    if (isEscBtn(item, evt)) {
-      closePopup(item)
-    }
-  })
-}
-
-function openPopup(popup) {
-  popup.classList.add('popup_opened')
-  document.addEventListener('keydown', closePopupKeyEscape)
-}
-
-function closePopup(popup) {
-  popup.classList.remove('popup_opened')
-  document.removeEventListener('keydown', closePopupKeyEscape)
-}
-
-function resetInputsValues(form) {
-  const inputList = Array.from(form.querySelectorAll(validationConfig.inputSelector))
-  inputList.forEach((input) => {
-    input.value = ''
-  })
-}
-
-function resetInputError(form, validClass, config) {
-  const inputList = Array.from(form.querySelectorAll(config.inputSelector))
-  inputList.forEach(input => {
-    validClass.hideInputError(form, input, config)
-  })
-}
-
 function closePhotoPopup() {
-  popupPhoto.querySelector('.popup__image').setAttribute('src', '')
-  popupPhoto.querySelector('.popup__image').setAttribute('alt', '')
+  const popupPhotoImg = popupPhoto.querySelector('.popup__image')
+  popupPhotoImg.setAttribute('src', '')
+  popupPhotoImg.setAttribute('alt', '')
   popupPhoto.querySelector('.popup__description').textContent = ''
 
   closePopup(popupPhoto)
@@ -98,7 +63,7 @@ function openPopupEdit() {
   inputAbout.value = profileSubtitle.textContent
 
   resetInputError(profileForm, validateEditForm, validationConfig)
-
+  
   validateEditForm.buttonStateToggle(
     Array.from(popupEditProfile.querySelectorAll(validationConfig.inputSelector)), 
     popupEditProfile.querySelector(validationConfig.submitButtonSelector),
@@ -107,20 +72,18 @@ function openPopupEdit() {
 }
 
 function closePopupEdit() {
-  resetInputsValues(profileForm)
-  resetInputError(popupEditProfile, validateEditForm, validationConfig)
+  resetInputsValues(profileForm, validationConfig)
   closePopup(popupEditProfile)
 }
 
 function profileFormSubmit() {
   profileTitle.textContent = inputName.value
   profileSubtitle.textContent = inputAbout.value
-  resetInputsValues(profileForm)
   closePopup(popupEditProfile)
 }
 
 function openPopupAddCard() {
-  resetInputsValues(popupAddCard)
+  resetInputsValues(popupAddCard, validationConfig)
   resetInputError(popupAddCard, validateAddCardForm, validationConfig)
 
   validateAddCardForm.buttonStateToggle(
@@ -137,8 +100,6 @@ function closePopupAddCard() {
 
 function addCardFormSubmit() {
   renderCard(inputLocation.value, inputLink.value, '#card-template')
-  resetInputError(popupAddCard, validateAddCardForm, validationConfig)
-  resetInputsValues(popupAddCard)
   closePopup(popupAddCard)
 }
 
@@ -153,17 +114,11 @@ popupAddCardCloseBtn.addEventListener('click', closePopupAddCard)
 profileForm.addEventListener('submit', profileFormSubmit)
 addCardForm.addEventListener('submit', addCardFormSubmit)
 
-popupEditProfile.addEventListener('click', (evt) => 
+popupEditProfile.addEventListener('mousedown', (evt) => 
   closeOverlay(evt, popupEditProfile))
 
-popupAddCard.addEventListener('click', (evt) =>
+popupAddCard.addEventListener('mousedown', (evt) =>
   closeOverlay(evt, popupAddCard))
 
-popupPhoto.addEventListener('click', (evt) =>
+popupPhoto.addEventListener('mousedown', (evt) =>
   closeOverlay(evt, popupPhoto))
-
-document.addEventListener('click', (evt) => {
-  if (evt.target.classList.contains('element__image')) {
-    document.addEventListener('keydown', closePopupKeyEscape)
-  }
-})

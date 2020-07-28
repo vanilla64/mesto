@@ -1,3 +1,5 @@
+import { openPopup } from './utils.js';
+
 class Card {
   constructor(location, link, templateSelector) {
     this._location = location
@@ -9,12 +11,11 @@ class Card {
     this._cardTemplate = document
       .querySelector(this._templateSelector)
       .content
+      .children[0]
       .cloneNode(true)
 
     return this._cardTemplate
   }
-
-  
 
   renderNewCard() {
     this._cardElement = this._getTemplateCard()
@@ -31,9 +32,9 @@ class Card {
 
   _setEventListeners() {
     this._cardElement.querySelector('.element__delete-button')
-      .addEventListener('click', (evt) => {
-        this._deleteCard(evt)
-    })
+      .addEventListener('click', () => {
+        this._deleteCard()
+      })
     this._cardElement.querySelector('.element__like-button')
       .addEventListener('click', (evt) => {
         this._likeToggle(evt)
@@ -44,8 +45,9 @@ class Card {
       })
   }
 
-  _deleteCard(evt) {
-    evt.target.closest('.element').remove()
+  _deleteCard() {
+    this._cardElement.remove()
+    this._cardElement = null
   }
 
   _likeToggle(evt) {
@@ -54,12 +56,13 @@ class Card {
 
   _openPhotoPopup(evt) {
     this._photoPopup = document.querySelector('.popup_type_photo')
+    this._photoPopupImg = this._photoPopup.querySelector('.popup__image')
 
-    this._photoPopup.querySelector('.popup__image').src = evt.target.src
-    this._photoPopup.querySelector('.popup__image').alt = evt.target.alt
+    this._photoPopupImg.src = evt.target.src
+    this._photoPopupImg.alt = evt.target.alt
     this._photoPopup.querySelector('.popup__description').textContent = evt.target.alt
 
-    this._photoPopup.classList.add('popup_opened')
+    openPopup(this._photoPopup)
   }
 }
 

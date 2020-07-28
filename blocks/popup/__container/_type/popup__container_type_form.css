@@ -8,6 +8,13 @@
   border-radius: 10px;
 }
 
+@media screen and (max-width: 510px) {
+  .popup__container_type_form {
+    min-width: 80%;
+    min-height: 258px;
+  }
+}
+
 @media screen and (max-width: 425px) {
   .popup__container_type_form {
     padding: 30px 20px;

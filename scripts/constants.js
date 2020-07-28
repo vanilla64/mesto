@@ -33,7 +33,6 @@ export const initialCards = [
   }
 ];
 
-export const popups = document.querySelectorAll('.popup')
 export const popupEditProfile = document.querySelector('.popup_type_edit-profile')
 export const popupAddCard = document.querySelector('.popup_type_add-card')
 export const popupPhoto = document.querySelector('.popup_type_photo')

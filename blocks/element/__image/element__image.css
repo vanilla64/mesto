@@ -4,4 +4,5 @@
   box-sizing: border-box;
   object-fit: cover;
   cursor: pointer;
+  color: #000;
 }
