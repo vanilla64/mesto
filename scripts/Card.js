@@ -11,7 +11,7 @@ class Card {
     this._cardTemplate = document
       .querySelector(this._templateSelector)
       .content
-      .children[0]
+      .querySelector('.element')
       .cloneNode(true)
 
     return this._cardTemplate

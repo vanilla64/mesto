@@ -59,6 +59,8 @@ function closePhotoPopup() {
 
 function openPopupEdit() {
   openPopup(popupEditProfile)
+  resetInputsValues(profileForm, validationConfig)
+  
   inputName.value = profileTitle.textContent
   inputAbout.value = profileSubtitle.textContent
 
@@ -69,11 +71,6 @@ function openPopupEdit() {
     popupEditProfile.querySelector(validationConfig.submitButtonSelector),
     validationConfig
   )
-}
-
-function closePopupEdit() {
-  resetInputsValues(profileForm, validationConfig)
-  closePopup(popupEditProfile)
 }
 
 function profileFormSubmit() {
@@ -94,10 +91,6 @@ function openPopupAddCard() {
   openPopup(popupAddCard)
 }
 
-function closePopupAddCard() {
-  closePopup(popupAddCard)
-}
-
 function addCardFormSubmit() {
   renderCard(inputLocation.value, inputLink.value, '#card-template')
   closePopup(popupAddCard)
@@ -107,9 +100,9 @@ function addCardFormSubmit() {
 editProfileBtn.addEventListener('click', openPopupEdit)
 addCardBtn.addEventListener('click', openPopupAddCard)
 
-popupEditProfileCloseBtn.addEventListener('click', closePopupEdit)
+popupEditProfileCloseBtn.addEventListener('click', () => closePopup(popupEditProfile))
 popupPhotoCloseBtn.addEventListener('click', closePhotoPopup)
-popupAddCardCloseBtn.addEventListener('click', closePopupAddCard)
+popupAddCardCloseBtn.addEventListener('click', () => closePopup(popupAddCard))
 
 profileForm.addEventListener('submit', profileFormSubmit)
 addCardForm.addEventListener('submit', addCardFormSubmit)
