@@ -1,10 +1,9 @@
-import { openPopup } from './utils.js';
-
 class Card {
-  constructor(location, link, templateSelector) {
+  constructor(location, link, templateSelector, handler) {
     this._location = location
     this._link = link
     this._templateSelector = templateSelector
+    this._handler = handler.bind(this)
   }
 
   _getTemplateCard() {
@@ -41,7 +40,7 @@ class Card {
       })
     this._cardElement.querySelector('.element__image')
       .addEventListener('click', (evt) => {
-        this._openPhotoPopup(evt)
+        this._handler(evt)
       })
   }
 
@@ -52,17 +51,6 @@ class Card {
 
   _likeToggle(evt) {
     evt.target.classList.toggle('element__like-button_pressed')
-  }
-
-  _openPhotoPopup(evt) {
-    this._photoPopup = document.querySelector('.popup_type_photo')
-    this._photoPopupImg = this._photoPopup.querySelector('.popup__image')
-
-    this._photoPopupImg.src = evt.target.src
-    this._photoPopupImg.alt = evt.target.alt
-    this._photoPopup.querySelector('.popup__description').textContent = evt.target.alt
-
-    openPopup(this._photoPopup)
   }
 }
 

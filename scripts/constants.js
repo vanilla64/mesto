@@ -40,10 +40,6 @@ export const popupPhoto = document.querySelector('.popup_type_photo')
 export const editProfileBtn = document.querySelector('.profile__edit-button')
 export const addCardBtn = document.querySelector('.profile__add-button')
 
-export const popupEditProfileCloseBtn = popupEditProfile.querySelector('.popup__close-btn')
-export const popupAddCardCloseBtn = popupAddCard.querySelector('.popup__close-btn')
-export const popupPhotoCloseBtn = popupPhoto.querySelector('.popup__close-btn')
-
 export const profileForm = popupEditProfile.querySelector('.popup__form')
 export const addCardForm = popupAddCard.querySelector('.popup__form')
 
