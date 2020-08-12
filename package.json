@@ -4,7 +4,8 @@
   "description": "### [Посмотреть](https://vanilla64.github.io/mesto/)",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "rd /s /q dist && webpack",
+    "dev": "webpack-dev-server --open --watch"
   },
   "repository": {
     "type": "git",
@@ -15,5 +16,10 @@
   "bugs": {
     "url": "https://github.com/vanilla64/mesto/issues"
   },
-  "homepage": "https://github.com/vanilla64/mesto#readme"
+  "homepage": "https://github.com/vanilla64/mesto#readme",
+  "devDependencies": {
+    "webpack": "^4.44.1",
+    "webpack-cli": "^3.3.12",
+    "webpack-dev-server": "^3.11.0"
+  }
 }

@@ -14,14 +14,14 @@ import {
   inputAbout, 
   inputLocation, 
   inputLink, 
-  cardList } from './constants.js';
+  cardList } from '../scripts/constants.js'
   
-import { Card } from './Card.js';
-import { FormValidator } from './FormValidator.js';
-import { Section } from './components/Section.js';
-import { PopupWithForm } from './components/PopupWithForm.js';
-import { PopupWithImage } from './components/PopupWithImage.js'
-import { UserInfo } from './components/UserInfo.js';
+import { Card } from '../scripts/Card.js'
+import { FormValidator } from '../scripts/FormValidator.js'
+import { Section } from '../scripts/components/Section.js'
+import { PopupWithForm } from '../scripts/components/PopupWithForm.js'
+import { PopupWithImage } from '../scripts/components/PopupWithImage.js'
+import { UserInfo } from '../scripts/components/UserInfo.js'
 
 //////////////////////////////
 const initialCardsReverse = initialCards.reverse()
@@ -113,3 +113,5 @@ function handleCardClick(evt) {
 //////////////////////////////
 editProfileBtn.addEventListener('click', () => handleEditProfile.open())
 addCardBtn.addEventListener('click', () => handleAddCard.open())
+
+console.log('Its ALIVE!')
