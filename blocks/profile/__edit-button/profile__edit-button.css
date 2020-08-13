@@ -1,5 +1,5 @@
 .profile__edit-button {
-  background-image: url('../../../images/edit-button.png');
+  background-image: url('../../../src/images/edit-button.png');
   -webkit-background-size: contain;
   background-size: contain;
   outline-style: none;

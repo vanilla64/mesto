@@ -1,3 +1,5 @@
+import '../pages/index.css'
+
 import {
   validationConfig, 
   initialCards,  
@@ -14,14 +16,14 @@ import {
   inputAbout, 
   inputLocation, 
   inputLink, 
-  cardList } from '../scripts/constants.js'
+  cardList } from '../scripts/constants.js';
   
-import { Card } from '../scripts/Card.js'
-import { FormValidator } from '../scripts/FormValidator.js'
-import { Section } from '../scripts/components/Section.js'
-import { PopupWithForm } from '../scripts/components/PopupWithForm.js'
+import { Card } from '../scripts/Card.js';
+import { FormValidator } from '../scripts/components/FormValidator.js';
+import { Section } from '../scripts/components/Section.js';
+import { PopupWithForm } from '../scripts/components/PopupWithForm.js';
 import { PopupWithImage } from '../scripts/components/PopupWithImage.js'
-import { UserInfo } from '../scripts/components/UserInfo.js'
+import { UserInfo } from '../scripts/components/UserInfo.js';
 
 //////////////////////////////
 const initialCardsReverse = initialCards.reverse()
@@ -113,13 +115,3 @@ function handleCardClick(evt) {
 //////////////////////////////
 editProfileBtn.addEventListener('click', () => handleEditProfile.open())
 addCardBtn.addEventListener('click', () => handleAddCard.open())
-
-console.log('Its ALIVE!')
-
-const numbers = [2, 3, 5];
-
-// Стрелочная функция. Не запнётся ли на ней Internet Explorer?
-const doubledNumbers = numbers.map(number => number * 2);
-
-console.log(doubledNumbers); // 4, 6, 10
-console.log('god hate us')
