@@ -1,5 +1,5 @@
 .popup__close-btn {
-  background-image: url('../../../src/images/close-icon.svg');
+  background-image: url('../../../images/close-icon.svg');
   background-size: contain;
   transform: rotate(45deg);
   width: 40px;
