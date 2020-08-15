@@ -48,7 +48,5 @@ export const profileSubtitle = document.querySelector('.profile__subtitle')
 
 export const inputName = document.querySelector('.popup__input_text_name')
 export const inputAbout = document.querySelector('.popup__input_text_job')
-export const inputLocation = document.querySelector('.popup__input_text_location')
-export const inputLink = document.querySelector('.popup__input_text_link')
 
 export const cardList = document.querySelector('.elements__list')

@@ -3,7 +3,6 @@ export default class Popup {
     this._popup = popupSelector
     this._handleEscClose = this._handleEscClose.bind(this)
     this._handleOverlayClose = this._handleOverlayClose.bind(this)
-    this.open = this.open.bind(this)
   }
 
   open() {
@@ -31,13 +30,9 @@ export default class Popup {
   }
 
   setEventListeners() {
-    this._popup.addEventListener('mousedown', (evt) => {
-      this._handleOverlayClose(evt)
-    })
-
     const closeBtn = this._popup.querySelector('.popup__close-btn')
-    closeBtn.addEventListener('click', () => {
-      this.close()
+    closeBtn.addEventListener('click', (evt) => {
+      this._handleOverlayClose(evt)
     })
   }
 }

@@ -5,12 +5,11 @@ export class UserInfo {
   }
 
   getUserInfo() {
-    const objInfo = { 
+    const userInfo = { 
       name: this._nameSelerctor.textContent, 
       about: this._aboutSelerctor.textContent
     }
-
-    return objInfo
+    return userInfo
   }
 
   setUserInfo(name, about) {

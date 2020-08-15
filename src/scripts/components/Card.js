@@ -1,9 +1,10 @@
 class Card {
-  constructor(location, link, templateSelector, handler) {
+  // constructor({data}, templateSelector, handleCardClick) {
+  constructor({ location, link, handleCardClick }, templateSelector) {
     this._location = location
     this._link = link
     this._templateSelector = templateSelector
-    this._handler = handler.bind(this)
+    this._handleCardClick = handleCardClick
   }
 
   _getTemplateCard() {
@@ -39,8 +40,8 @@ class Card {
         this._likeToggle(evt)
       })
     this._cardElement.querySelector('.element__image')
-      .addEventListener('click', (evt) => {
-        this._handler(evt)
+      .addEventListener('click', () => {
+        this._handleCardClick()
       })
   }
 

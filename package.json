@@ -1,7 +1,7 @@
 {
   "name": "mesto",
   "version": "1.0.0",
-  "description": "### [Посмотреть](https://vanilla64.github.io/mesto/)",
+  "description": "",
   "main": "index.js",
   "scripts": {
     "build": "rm -rf ./dist && webpack",
@@ -12,12 +12,12 @@
     "url": "git+https://github.com/vanilla64/mesto.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "Sergei Mashin",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/vanilla64/mesto/issues"
   },
-  "homepage": "https://github.com/vanilla64/mesto#readme",
+  "homepage": "https://vanilla64.github.io/mesto/",
   "devDependencies": {
     "@babel/core": "^7.11.1",
     "@babel/preset-env": "^7.11.0",
@@ -30,11 +30,11 @@
     "postcss-loader": "^3.0.0",
     "webpack": "^4.44.1",
     "webpack-cli": "^3.3.12",
-    "webpack-dev-server": "^3.11.0"
-  },
-  "dependencies": {
-    "core-js": "^3.6.5",
+    "webpack-dev-server": "^3.11.0",
     "css-loader": "^4.2.1",
     "mini-css-extract-plugin": "^0.10.0"
+  },
+  "dependencies": {
+    "core-js": "^3.6.5"
   }
 }
