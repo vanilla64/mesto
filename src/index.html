@@ -17,10 +17,13 @@
     <main class="content">
 <!-- Блок profile -->
       <section class="profile">
-        <img class="profile__avatar" src="./images/avatar.jpg" alt="Аватар">
+        <div class="profile__avatar">
+          <img class="profile__img" src="#" alt="Аватар">
+          <!-- <img class="profile__img" src="./images/avatar.jpg" alt="Аватар"> -->
+        </div>
         <div class="profile__user-info">
-          <h1 class="profile__title">Жак-Ив Кусто</h1>
-          <p class="profile__subtitle">Исследователь океана</p>
+          <h1 class="profile__title"></h1>
+          <p class="profile__subtitle"></p>
         </div>
         <button class="profile__edit-button"></button>
         <div class="profile__container">
@@ -98,13 +101,42 @@
       <figcaption class="popup__description"></figcaption>
     </figure>
   </section>
+
+  <section class="popup popup_type_confirm">
+    <div class="popup__container popup__container_type_confirm">
+      <h2 class="popup__title popup__title_type_confirm">Вы уверены?</h2>
+      <div class="popup__close-btn"></div>
+      <form class="popup__form" novalidate>
+        <button class="popup__btn popup__btn_type_confirm" type="submit">Да</button>
+      </form>
+    </div>
+  </section>
+
+  <section class="popup popup_type_avatar-upd">
+    <div class="popup__container popup__container_type_confirm">
+      <h2 class="popup__title popup__title_type_confirm">Обновить аватар</h2>
+      <div class="popup__close-btn"></div>
+      <form class="popup__form" novalidate>
+        <label class="popup__label">
+          <input id="link-input-avatar" name="linkavatar" class="popup__input popup__input_text_link" type="url"
+            placeholder="Ссылка на картинку" required>
+          <span id="link-input-avatar-error" class="popup__error"></span>
+        </label>
+        <button class="popup__btn" type="submit">Сохранить</button>
+      </form>
+    </div>
+  </section>
+
   <template id="card-template">
     <li class="element">
       <button class="element__delete-button"></button>
       <img class="element__image" src="#" alt="">
       <div class="element__heading">
         <h2 class="element__title"></h2>
-        <button class="element__like-button"></button>
+        <div class="element__like-container">
+          <button class="element__like-button"></button>
+          <span class="element__like-counter">0</span>
+        </div>
       </div>
     </li>
   </template>

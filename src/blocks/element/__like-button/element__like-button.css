@@ -13,6 +13,7 @@
   background-color: transparent;
   -ms-align-self: center;
   padding: 0;
+  margin: 0 0 3px;
 }
 
 .element__like-button:hover {

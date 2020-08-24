@@ -13,6 +13,7 @@
 @import url('./_type/popup_type_edit-profile.css');
 @import url('./_type/popup_type_add-card.css');
 @import url('./_type/popup_type_photo.css');
+@import url('./_type/popup_type_confirm.css');
 
 .popup {
   position: fixed;

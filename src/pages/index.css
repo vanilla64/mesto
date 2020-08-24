@@ -11,3 +11,5 @@
 @import url('../blocks/popup/_opened/popup_opened.css');
 @import url('../blocks/popup/__error/_visible/popup__error_visible.css');
 @import url('../blocks/element/__like-button/_pressed/element__like-button_pressed.css');
+@import url('../blocks/popup/__btn/_type/popup__btn_type_confirm.css');
+@import url('../blocks/popup/__title/_type/popup__title_type_confirm.css');

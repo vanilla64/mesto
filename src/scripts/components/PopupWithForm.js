@@ -21,7 +21,8 @@ export class PopupWithForm extends Popup {
     super.setEventListeners()
 
     const form = this._popup.querySelector('.popup__form')
-    form.addEventListener('submit', () => {
+    form.addEventListener('submit', (evt) => {
+      evt.preventDefault()
       this._callbackSubmitForm(this._getInputValues())
     })
   }
