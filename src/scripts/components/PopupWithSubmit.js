@@ -17,7 +17,6 @@ export class PopupWithSubmit extends Popup {
     const form = this._popup.querySelector('.popup__form')
     form.addEventListener('submit', (evt) => {
       evt.preventDefault()
-      // this._callbackSubmitForm()
 
       this._submit()
       // this._setSubmitAction()

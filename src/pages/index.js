@@ -63,7 +63,6 @@ Promise.all([
   api.getUserInfo(), 
   api.getInitialCards()
 ]).then((res) => {
-  // content.style.display = 'none'
 
   const [getUserInfo, getInitialCards] = res
 
@@ -72,6 +71,7 @@ Promise.all([
 
   ///////// render initial cards
   const initialCards = getInitialCards.reverse()
+
     const itemRenderer = new Section({
       items: initialCards,
       renderer: (item) => {
@@ -87,8 +87,19 @@ Promise.all([
           handleLikeClick: (id, isLiked, counter, likeBtn) => {
             api.likeCardToggle(id, isLiked, counter, likeBtn)
           },
-          api: api,
-          deletePopup: popupConfirm,
+          handleDelClick: (id, card) => {
+            // console.log(card)
+            popupConfirm.setSubmitAction(() => {
+              api.deleteCard(id)
+              .then(() => {
+                card.remove()
+                card = null
+                popupConfirm.close()
+              })
+            })
+            popupConfirm.open()
+          },
+
         }, '#card-template')
         itemRenderer.addItem(newCard.renderNewCard())
       }
@@ -116,8 +127,19 @@ Promise.all([
             handleLikeClick: (id, isLiked, counter, likeBtn) => {
               api.likeCardToggle(id, isLiked, counter, likeBtn)
             },
-            api: api,
-            deletePopup: popupConfirm,
+            handleDelClick: (id, card) => {
+              // console.log(card)
+              popupConfirm.setSubmitAction(() => {
+                api.deleteCard(id)
+                .then(() => {
+                  card.remove()
+                  card = null
+                  popupConfirm.close()
+                })
+              })
+
+              popupConfirm.open()
+            },
           }, '#card-template')
           itemRenderer.addItem(newCard.renderNewCard())
         })

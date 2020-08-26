@@ -15,6 +15,8 @@ export default class Popup {
   close() {
     this._popup.classList.remove('popup_opened')
     document.removeEventListener('keydown', this._handleEscClose)
+
+    this._popup.removeEventListener('mousedown', this._handleOverlayClose)
   }
 
   _handleEscClose(evt) {
@@ -31,8 +33,8 @@ export default class Popup {
 
   setEventListeners() {
     const closeBtn = this._popup.querySelector('.popup__close-btn')
-    closeBtn.addEventListener('click', (evt) => {
-      this._handleOverlayClose(evt)
+    closeBtn.addEventListener('click', () => {
+      this.close()
     })
   }
 }
