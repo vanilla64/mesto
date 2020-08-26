@@ -40,7 +40,9 @@ import { UserInfo } from '../scripts/components/UserInfo.js';
 import { Api } from '../scripts/components/Api.js';
 
 //////////////////////////////
-const initialCardsReverse = initialCards.reverse()
+
+const content = document.querySelector('.content')
+// content.style.display = 'none'
 
 const validateEditForm = new FormValidator(validationConfig, profileForm)
 validateEditForm.enableValidation()
@@ -57,21 +59,24 @@ const api = new Api({
   token: token
 })
 
-api.getInitialCards()
-  .then(data => {
-    console.log(data)
-    ///////// render initial cards
-    const initialCards = data.reverse()
+Promise.all([
+  api.getUserInfo(), 
+  api.getInitialCards()
+]).then((res) => {
+  // content.style.display = 'none'
+
+  const [getUserInfo, getInitialCards] = res
+
+  userInfo.setUserInfo(getUserInfo.name, getUserInfo.about)
+  profileAvatar.src = getUserInfo.avatar
+
+  ///////// render initial cards
+  const initialCards = getInitialCards.reverse()
     const itemRenderer = new Section({
       items: initialCards,
       renderer: (item) => {
-        console.log(item)
+        // console.log(item)
         const newCard = new Card({
-          // location: item.name,
-          // link: item.link,
-          // cardId: item._id,
-          // userId: item.owner._id,
-          // likes: parseInt(item.likes.length),
           data: item,
           handleCardClick: () => {
             handleImgPopup.open({
@@ -82,17 +87,8 @@ api.getInitialCards()
           handleLikeClick: (id, isLiked, counter, likeBtn) => {
             api.likeCardToggle(id, isLiked, counter, likeBtn)
           },
-          handleDelClick: (id) => {
-            console.log(id)
-
-            // popupConfirm.setSubmitAction(() => {
-            //   api.deleteCard(id)
-            //   .then(() => {
-            //     popupConfirm.close()
-            //   })
-            // })
-            // popupConfirm.open()
-          }
+          api: api,
+          deletePopup: popupConfirm,
         }, '#card-template')
         itemRenderer.addItem(newCard.renderNewCard())
       }
@@ -100,25 +96,16 @@ api.getInitialCards()
       cardList)
 
     itemRenderer.renderItems()
-
-    ///////// confirm popup
-
-
-
-    ///////// addcard popup
-    const handleAddCard = new PopupWithForm({
+  
+  ///////// addcard popup
+  
+  const handleAddCard = new PopupWithForm({
       callbackSubmitForm: (data) => {
         renderLoading(true, popupAddCard, validationConfig)
 
         api.createCard(data.location, data.link)
         .then(res => {
           const newCard = new Card({
-            // location: data.location,
-            // link: data.link,
-            // cardId: res._id,
-            // userId: res.owner._id,
-            // likes: parseInt(res.likes.length),
-
             data: res,
             handleCardClick: () => {
               handleImgPopup.open({
@@ -129,9 +116,8 @@ api.getInitialCards()
             handleLikeClick: (id, isLiked, counter, likeBtn) => {
               api.likeCardToggle(id, isLiked, counter, likeBtn)
             },
-            handleDelClick: () => {
-
-            }
+            api: api,
+            deletePopup: popupConfirm,
           }, '#card-template')
           itemRenderer.addItem(newCard.renderNewCard())
         })
@@ -154,15 +140,13 @@ api.getInitialCards()
 
       handleAddCard.open()
     })
-  })
-  .catch(err => console.error(err))
 
-api.getUserInfo()
-  .then(data => {
-    userInfo.setUserInfo(data.name, data.about)
-    profileAvatar.src = data.avatar
-  })
-  .catch(err => console.error(err))
+})
+  .then(() => {
+    content.style.display = 'block',
+      document.querySelector('.preloader').style.display = 'none'
+  }) // remove preloeder
+.catch(err => console.log(err))
 
 //////////////////////////////
 const handleEditProfile = new PopupWithForm({
@@ -181,31 +165,9 @@ const handleEditProfile = new PopupWithForm({
 
 handleEditProfile.setEventListeners()
 
-
-// const handleAddCard = new PopupWithForm({ 
-//   callbackSubmitForm: (data) => {
-//     const newCard = new Card({
-//       location: data.location,
-//       link: data.link, 
-//       handleCardClick: () => {
-//         handleImgPopup.open({
-//           location: data.location,
-//           link: data.link
-//         })
-//       }
-//     }, '#card-template')
-
-//     itemRenderer.addItem(newCard.renderNewCard())
-//     handleAddCard.close()
-//   }
-// }, popupAddCard)
-// handleAddCard.setEventListeners()
-
 const updAvatar = new PopupWithForm({
   callbackSubmitForm: (data) => {
-    // const submitBtn = popupAvatarUpd.querySelector(validationConfig.submitButtonSelector)
-    // submitBtn.textContent = 'Сохранение...'
-    console.log(data.linkavatar);
+    // console.log(data.linkavatar);
     renderLoading(true, popupAvatarUpd, validationConfig)
     api.setAvatar(data.linkavatar)
       .then((res) => {
@@ -222,11 +184,7 @@ const updAvatar = new PopupWithForm({
 },popupAvatarUpd)
 updAvatar.setEventListeners()
 
-const popupConfirm = new PopupWithSubmit({
-  callbackSubmitForm: () => {
-    
-  }
-}, popupConfirmDelete)
+const popupConfirm = new PopupWithSubmit(popupConfirmDelete)
 popupConfirm.setEventListeners()
 
 
@@ -260,23 +218,3 @@ profileContainer.addEventListener('click', () => {
   )
   updAvatar.open()
 })
-////////////////////////////// open popup add card
-// addCardBtn.addEventListener('click', () => {
-
-//   validateAddCardForm.resetForm(
-//     validationConfig,
-//     popupAddCard.querySelector(validationConfig.submitButtonSelector)
-//   )
-  
-//   handleAddCard.open()
-// })
-
-// fetch(`${cardUrl}`, {
-//   headers: {
-//     authorization: token,
-//     'Content-Type': 'application/json'
-//   }
-// })
-// .then(res => res.json())
-//   .then(res => res.forEach(item => 
-//     console.log(item.likes)))

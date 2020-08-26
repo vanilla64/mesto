@@ -1,13 +1,5 @@
 class Card {
-  // constructor({data}, templateSelector, handleCardClick) {
-  // constructor({ location, link, cardId, userId, likes, handleCardClick, handleLikeClick, handleDelClick }, templateSelector) {
-  constructor({ data, handleCardClick, handleLikeClick, handleDelClick }, templateSelector) {
-    // this._location = data.location
-    // this._link = data.link
-    // this._cardId = data.cardId
-    // this._userId = data.userId
-    // this._likes = data.likes
-
+  constructor({ data, handleCardClick, handleLikeClick, api, deletePopup }, templateSelector) {
     this._data = data
     this._location = data.name
     this._link = data.link
@@ -17,7 +9,8 @@ class Card {
     this._templateSelector = templateSelector
     this._handleCardClick = handleCardClick
     this._handleLikeClick = handleLikeClick
-    this._handleDelClick = handleDelClick
+    this._api = api
+    this._deletePopup = deletePopup
   }
 
   _getTemplateCard() {
@@ -59,17 +52,20 @@ class Card {
     } else {
       return this._cardElement
     }
-
-    // if () {
-
-    // }
   }
 
   _setEventListeners() {
     this._cardElement.querySelector('.element__delete-button')
       .addEventListener('click', () => {
-        // this._deleteCard()
-        this._handleDelClick(this._cardId, this._deleteCard)
+        this._deletePopup.setSubmitAction(() => {
+          this._api.deleteCard(this._cardId)
+          .then(() => {
+            this._deleteCard()
+            this._deletePopup.close()
+          })
+          .catch(err => console.log(err))
+        })
+        this._deletePopup.open()
       })
     this._cardElement.querySelector('.element__like-button')
       .addEventListener('click', (evt) => {

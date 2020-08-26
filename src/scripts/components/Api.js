@@ -14,13 +14,10 @@ export class Api {
   }
 
   likeCardToggle(id, isLiked, counter, likeBtn) {
-    // this._setlike(id)
-    console.log(likeBtn)
     if (!isLiked) {
 
       this._setlike(id)
         .then((res) => {
-          // console.log(card)
           likeBtn.classList.toggle('element__like-button_pressed')
           counter.textContent = parseInt(res.likes.length)
         })
@@ -119,10 +116,10 @@ export class Api {
       headers: {
         authorization: this._token,
         'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        _id: id
-      })
+      }
+      // body: JSON.stringify({
+      //   _id: id
+      // })
     })
       .then(res => res.json())
       .catch((err) => console.log(err))
