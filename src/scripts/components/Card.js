@@ -1,5 +1,4 @@
 class Card {
-  // constructor({ data, handleCardClick, handleLikeClick, api, deletePopup }, templateSelector) {
   constructor({ data, handleCardClick, handleLikeClick, handleDelClick }, templateSelector) {
     this._data = data
     this._location = data.name
@@ -62,7 +61,6 @@ class Card {
     this._cardElement.querySelector('.element__like-button')
       .addEventListener('click', (evt) => {
         this._likeToggle(evt)
-        // console.log(this._cardElement)
       })
     this._cardElement.querySelector('.element__image')
       .addEventListener('click', () => {

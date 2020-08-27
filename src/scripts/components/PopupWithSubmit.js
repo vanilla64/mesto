@@ -1,10 +1,8 @@
 import Popup from './Popup.js'
 
 export class PopupWithSubmit extends Popup {
-  // constructor({ callbackSubmitForm }, popupSelector) {
   constructor(popupSelector) {
     super(popupSelector)
-    // this._callbackSubmitForm = callbackSubmitForm
   }
 
   setSubmitAction(actions) {
@@ -17,9 +15,7 @@ export class PopupWithSubmit extends Popup {
     const form = this._popup.querySelector('.popup__form')
     form.addEventListener('submit', (evt) => {
       evt.preventDefault()
-
       this._submit()
-      // this._setSubmitAction()
     })
   }
 }

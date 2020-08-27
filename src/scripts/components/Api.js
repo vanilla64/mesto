@@ -22,11 +22,11 @@ export class Api {
     if (!isLiked) {
 
       this._setlike(id)
-        .then((res) => {
-          likeBtn.classList.toggle('element__like-button_pressed')
-          counter.textContent = parseInt(res.likes.length)
-        })
-        .catch(err => console.log(err))
+      .then((res) => {
+        likeBtn.classList.toggle('element__like-button_pressed')
+        counter.textContent = parseInt(res.likes.length)
+      })
+      .catch(err => console.log(err))
 
     } else if (isLiked) {
       
@@ -47,12 +47,12 @@ export class Api {
         'Content-Type': 'application/json'
       }
     })
-      .then((res) => {
-        if (res.ok) {
-          return res.json()
-        }
-        return Promise.reject(`Ошибка: ${res.status}`)
-      })
+    .then((res) => {
+      if (res.ok) {
+        return res.json()
+      }
+      return Promise.reject(`Ошибка: ${res.status}`)
+    })
   }
 
   _removeLike(id) {
@@ -63,12 +63,12 @@ export class Api {
         'Content-Type': 'application/json'
       }
     })
-      .then((res) => {
-        if (res.ok) {
-          return res.json()
-        }
-        return Promise.reject(`Ошибка: ${res.status}`)
-      })
+    .then((res) => {
+      if (res.ok) {
+        return res.json()
+      }
+      return Promise.reject(`Ошибка: ${res.status}`)
+    })
   }
   
   getUserInfo() {
@@ -77,12 +77,12 @@ export class Api {
         authorization: this._token
       }
     })
-      .then((res) => {
-        if (res.ok) {
-          return res.json()
-        }
-        return Promise.reject(`Ошибка: ${res.status}`)
-      })
+    .then((res) => {
+      if (res.ok) {
+        return res.json()
+      }
+      return Promise.reject(`Ошибка: ${res.status}`)
+    })
   }
 
   setUserInfo(name, about) {
@@ -97,12 +97,12 @@ export class Api {
         about: about
       })
     })
-      .then((res) => {
-        if (res.ok) {
-          return res
-        }
-        return Promise.reject(`Ошибка: ${res.status}`)
-      })
+    .then((res) => {
+      if (res.ok) {
+        return res
+      }
+      return Promise.reject(`Ошибка: ${res.status}`)
+    })
   }
 
   setAvatar(avatar) {
@@ -116,12 +116,12 @@ export class Api {
         avatar: avatar
       })
     })
-      .then((res) => {
-        if (res.ok) {
-          return res
-        }
-        return Promise.reject(`Ошибка: ${res.status}`)
-      })
+    .then((res) => {
+      if (res.ok) {
+        return res
+      }
+      return Promise.reject(`Ошибка: ${res.status}`)
+    })
   }
 
   createCard(name, link) {
@@ -136,13 +136,13 @@ export class Api {
         link: link
       })
     })
-      .then((res) => {
-        if (res.ok) {
-          return res.json()
-        }
-        return Promise.reject(`Ошибка: ${res.status}`)
-      })  
-      .catch((err) => console.log(err))
+    .then((res) => {
+      if (res.ok) {
+        return res.json()
+      }
+      return Promise.reject(`Ошибка: ${res.status}`)
+    })  
+    .catch((err) => console.log(err))
   }
 
   deleteCard(id) {
@@ -152,16 +152,13 @@ export class Api {
         authorization: this._token,
         'Content-Type': 'application/json'
       }
-      // body: JSON.stringify({
-      //   _id: id
-      // })
     })
-      .then((res) => {
-        if (res.ok) {
-          return res.json()
-        }
-        return Promise.reject(`Ошибка: ${res.status}`)
-      })
-      .catch((err) => console.log(err))
+    .then((res) => {
+      if (res.ok) {
+        return res.json()
+      }
+      return Promise.reject(`Ошибка: ${res.status}`)
+    })
+    .catch((err) => console.log(err))
   }
 }
