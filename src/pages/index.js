@@ -87,12 +87,13 @@ Promise.all([
           createNewCard(res)
         )
       })
+      .then(() => {
+        handleAddCard.close()
+      })
       .catch(err => console.error(err))
       .finally(() => {
         renderLoading(false, popupAddCard, validationConfig)
       })
-
-      handleAddCard.close()
     }
   }, popupAddCard)
 
@@ -137,9 +138,11 @@ const updAvatar = new PopupWithForm({
     .then(() => {
       profileAvatar.src = data.linkavatar
     })
+    .then(() => {
+      updAvatar.close()
+    })
     .catch(err => console.log(err))
     .finally(() => {
-      updAvatar.close()
       renderLoading(false, popupAvatarUpd, validationConfig)
     })
   }
