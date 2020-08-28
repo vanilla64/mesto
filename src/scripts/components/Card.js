@@ -1,13 +1,5 @@
 class Card {
-  // constructor({data}, templateSelector, handleCardClick) {
-  // constructor({ location, link, cardId, userId, likes, handleCardClick, handleLikeClick, handleDelClick }, templateSelector) {
   constructor({ data, handleCardClick, handleLikeClick, handleDelClick }, templateSelector) {
-    // this._location = data.location
-    // this._link = data.link
-    // this._cardId = data.cardId
-    // this._userId = data.userId
-    // this._likes = data.likes
-
     this._data = data
     this._location = data.name
     this._link = data.link
@@ -59,22 +51,16 @@ class Card {
     } else {
       return this._cardElement
     }
-
-    // if () {
-
-    // }
   }
 
   _setEventListeners() {
     this._cardElement.querySelector('.element__delete-button')
       .addEventListener('click', () => {
-        // this._deleteCard()
-        this._handleDelClick(this._cardId, this._deleteCard)
+        this._handleDelClick(this._cardId, this._cardElement)
       })
     this._cardElement.querySelector('.element__like-button')
       .addEventListener('click', (evt) => {
         this._likeToggle(evt)
-        // console.log(this._cardElement)
       })
     this._cardElement.querySelector('.element__image')
       .addEventListener('click', () => {

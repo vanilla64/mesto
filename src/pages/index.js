@@ -2,13 +2,8 @@ import './index.css'
 
 import {
   requestUrl, 
-  meUrl, 
-  cardUrl, 
-  token, 
-  myId, 
-  headers,  
-  validationConfig, 
-  initialCards,  
+  token,   
+  validationConfig,  
   popupEditProfile, 
   popupAddCard, 
   popupPhoto, 
@@ -18,29 +13,28 @@ import {
   addCardBtn, 
   profileForm, 
   addCardForm, 
-  avatarUpdForm, 
-  confirmDeleteCardForm, 
+  avatarUpdForm,  
   profileTitle, 
   profileSubtitle, 
   profileAvatar, 
   profileContainer, 
   inputName, 
   inputAbout,  
-  cardList } from '../scripts/constants.js';
+  cardList } from '../scripts/constants.js'
 
-import { renderLoading } from '../scripts/utils/utils.js';
+import { renderLoading } from '../scripts/utils/utils.js'
 
-import { Card } from '../scripts/components/Card.js';
-import { FormValidator } from '../scripts/components/FormValidator.js';
-import { Section } from '../scripts/components/Section.js';
-import { PopupWithForm } from '../scripts/components/PopupWithForm.js';
+import { Card } from '../scripts/components/Card.js'
+import { FormValidator } from '../scripts/components/FormValidator.js'
+import { Section } from '../scripts/components/Section.js'
+import { PopupWithForm } from '../scripts/components/PopupWithForm.js'
 import { PopupWithImage } from '../scripts/components/PopupWithImage.js'
 import { PopupWithSubmit } from '../scripts/components/PopupWithSubmit.js'
-import { UserInfo } from '../scripts/components/UserInfo.js';
-import { Api } from '../scripts/components/Api.js';
+import { UserInfo } from '../scripts/components/UserInfo.js'
+import { Api } from '../scripts/components/Api.js'
 
 //////////////////////////////
-const initialCardsReverse = initialCards.reverse()
+const content = document.querySelector('.content')
 
 const validateEditForm = new FormValidator(validationConfig, profileForm)
 validateEditForm.enableValidation()
@@ -51,118 +45,73 @@ validateAddCardForm.enableValidation()
 const validateAvatarUpd = new FormValidator(validationConfig, avatarUpdForm)
 validateAvatarUpd.enableValidation()
 
-///////////////
 const api = new Api({
   url: requestUrl,
   token: token
 })
 
-api.getInitialCards()
-  .then(data => {
-    console.log(data)
-    ///////// render initial cards
-    const initialCards = data.reverse()
-    const itemRenderer = new Section({
-      items: initialCards,
-      renderer: (item) => {
-        console.log(item)
-        const newCard = new Card({
-          // location: item.name,
-          // link: item.link,
-          // cardId: item._id,
-          // userId: item.owner._id,
-          // likes: parseInt(item.likes.length),
-          data: item,
-          handleCardClick: () => {
-            handleImgPopup.open({
-              location: item.name,
-              link: item.link
-            })
-          },
-          handleLikeClick: (id, isLiked, counter, likeBtn) => {
-            api.likeCardToggle(id, isLiked, counter, likeBtn)
-          },
-          handleDelClick: (id) => {
-            console.log(id)
+///////////////
+Promise.all([
+  api.getUserInfo(), 
+  api.getInitialCards()
+])
+.then((res) => {
 
-            // popupConfirm.setSubmitAction(() => {
-            //   api.deleteCard(id)
-            //   .then(() => {
-            //     popupConfirm.close()
-            //   })
-            // })
-            // popupConfirm.open()
-          }
-        }, '#card-template')
-        itemRenderer.addItem(newCard.renderNewCard())
-      }
-    },
-      cardList)
+  const [getUserInfo, getInitialCards] = res
+  userInfo.setUserInfo(getUserInfo.name, getUserInfo.about)
+  profileAvatar.src = getUserInfo.avatar
 
-    itemRenderer.renderItems()
+  ///////// render initial cards
+  const initialCards = getInitialCards.reverse()
 
-    ///////// confirm popup
-
-
-
-    ///////// addcard popup
-    const handleAddCard = new PopupWithForm({
-      callbackSubmitForm: (data) => {
-        renderLoading(true, popupAddCard, validationConfig)
-
-        api.createCard(data.location, data.link)
-        .then(res => {
-          const newCard = new Card({
-            // location: data.location,
-            // link: data.link,
-            // cardId: res._id,
-            // userId: res.owner._id,
-            // likes: parseInt(res.likes.length),
-
-            data: res,
-            handleCardClick: () => {
-              handleImgPopup.open({
-                location: data.location,
-                link: data.link
-              })
-            },
-            handleLikeClick: (id, isLiked, counter, likeBtn) => {
-              api.likeCardToggle(id, isLiked, counter, likeBtn)
-            },
-            handleDelClick: () => {
-
-            }
-          }, '#card-template')
-          itemRenderer.addItem(newCard.renderNewCard())
-        })
-        .finally(() => {
-          renderLoading(false, popupAddCard, validationConfig)
-        })
-        .catch(err => console.error(err))
-        handleAddCard.close()
-      }
-    }, popupAddCard)
-    handleAddCard.setEventListeners()
-
-    ///////// listeners
-    addCardBtn.addEventListener('click', () => {
-
-      validateAddCardForm.resetForm(
-        validationConfig,
-        popupAddCard.querySelector(validationConfig.submitButtonSelector)
+  const itemRenderer = new Section({
+    items: initialCards,
+    renderer: (item) => {
+      itemRenderer.addItem(
+        createNewCard(item)
       )
+    }
+  },
+  cardList)
 
-      handleAddCard.open()
-    })
-  })
-  .catch(err => console.error(err))
+  itemRenderer.renderItems()
+  
+  ///////// addcard popup
+  const handleAddCard = new PopupWithForm({
+    callbackSubmitForm: (data) => {
+      renderLoading(true, popupAddCard, validationConfig)
 
-api.getUserInfo()
-  .then(data => {
-    userInfo.setUserInfo(data.name, data.about)
-    profileAvatar.src = data.avatar
+      api.createCard(data.location, data.link)
+      .then(res => {
+        itemRenderer.addItem(
+          createNewCard(res)
+        )
+      })
+      .catch(err => console.error(err))
+      .finally(() => {
+        renderLoading(false, popupAddCard, validationConfig)
+      })
+
+      handleAddCard.close()
+    }
+  }, popupAddCard)
+
+  handleAddCard.setEventListeners()
+
+  ///////// listeners
+  addCardBtn.addEventListener('click', () => {
+    validateAddCardForm.resetForm(
+      validationConfig,
+      popupAddCard.querySelector(validationConfig.submitButtonSelector)
+    )
+    handleAddCard.open()
   })
-  .catch(err => console.error(err))
+})
+.then(() => {
+  content.style.display = 'block',
+    document.querySelector('.preloader').style.display = 'none'
+})
+.catch(err => console.log(err))
 
 //////////////////////////////
 const handleEditProfile = new PopupWithForm({
@@ -170,12 +119,12 @@ const handleEditProfile = new PopupWithForm({
     renderLoading(true, popupEditProfile, validationConfig)
 
     api.setUserInfo(data.name, data.job)
-      .then(userInfo.setUserInfo(data.name, data.job))
-      .then(handleEditProfile.close())
-      .finally(() => {
-        renderLoading(false, popupEditProfile, validationConfig)
-      })
-      .catch(err => console.log(err))
+    .then(userInfo.setUserInfo(data.name, data.job))
+    .then(handleEditProfile.close())
+    .catch(err => console.log(err))
+    .finally(() => {
+      renderLoading(false, popupEditProfile, validationConfig)
+    })
   }
 }, popupEditProfile)
 
@@ -183,30 +132,22 @@ handleEditProfile.setEventListeners()
 
 const updAvatar = new PopupWithForm({
   callbackSubmitForm: (data) => {
-    // const submitBtn = popupAvatarUpd.querySelector(validationConfig.submitButtonSelector)
-    // submitBtn.textContent = 'Сохранение...'
-    console.log(data.linkavatar);
     renderLoading(true, popupAvatarUpd, validationConfig)
     api.setAvatar(data.linkavatar)
-      .then((res) => {
-        if(res.ok) {
-          profileAvatar.src = data.linkavatar
-        }
-      })
-      .then(updAvatar.close())
-      .finally(() => {
-        renderLoading(false, popupAvatarUpd, validationConfig)
-      })
-      .catch(err => console.log(err))
+    .then(() => {
+      profileAvatar.src = data.linkavatar
+    })
+    .catch(err => console.log(err))
+    .finally(() => {
+      updAvatar.close()
+      renderLoading(false, popupAvatarUpd, validationConfig)
+    })
   }
 },popupAvatarUpd)
+
 updAvatar.setEventListeners()
 
-const popupConfirm = new PopupWithSubmit({
-  callbackSubmitForm: () => {
-    
-  }
-}, popupConfirmDelete)
+const popupConfirm = new PopupWithSubmit(popupConfirmDelete)
 popupConfirm.setEventListeners()
 
 
@@ -217,6 +158,50 @@ const userInfo = new UserInfo({
   nameSelerctor: profileTitle,
   aboutSelerctor: profileSubtitle
 })
+
+///////// cardClick
+function cardClick(data) {
+  handleImgPopup.open({
+    location: data.name,
+    link: data.link
+  })
+}
+///////// likeClick
+function likeClick(id, isLiked, counter, likeBtn) {
+  api.likeCardToggle(id, isLiked, counter, likeBtn)
+}
+///////// delClick
+function delClick(id, card) {
+  popupConfirm.setSubmitAction(() => {
+    api.deleteCard(id)
+      .then(() => {
+        card.remove()
+        card = null
+        popupConfirm.close()
+      })
+  })
+  popupConfirm.open()
+}
+
+///////// render
+function createNewCard(data) {
+  const newCard = new Card({
+    data: data,
+    handleCardClick: () => {
+      cardClick(data)
+    },
+    handleLikeClick: (id, isLiked, counter, likeBtn) => {
+      likeClick(id, isLiked, counter, likeBtn)
+    },
+    handleDelClick: (id, card) => {
+      // console.log(card)
+      delClick(id, card)
+    },
+
+  }, '#card-template')
+
+  return newCard.renderNewCard()
+}
 
 ////////////////////////////// open popup with user info
 editProfileBtn.addEventListener('click', () => {
@@ -240,23 +225,3 @@ profileContainer.addEventListener('click', () => {
   )
   updAvatar.open()
 })
-////////////////////////////// open popup add card
-// addCardBtn.addEventListener('click', () => {
-
-//   validateAddCardForm.resetForm(
-//     validationConfig,
-//     popupAddCard.querySelector(validationConfig.submitButtonSelector)
-//   )
-  
-//   handleAddCard.open()
-// })
-
-// fetch(`${cardUrl}`, {
-//   headers: {
-//     authorization: token,
-//     'Content-Type': 'application/json'
-//   }
-// })
-// .then(res => res.json())
-//   .then(res => res.forEach(item => 
-//     console.log(item.likes)))
