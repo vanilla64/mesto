@@ -181,26 +181,6 @@ const handleEditProfile = new PopupWithForm({
 
 handleEditProfile.setEventListeners()
 
-
-// const handleAddCard = new PopupWithForm({ 
-//   callbackSubmitForm: (data) => {
-//     const newCard = new Card({
-//       location: data.location,
-//       link: data.link, 
-//       handleCardClick: () => {
-//         handleImgPopup.open({
-//           location: data.location,
-//           link: data.link
-//         })
-//       }
-//     }, '#card-template')
-
-//     itemRenderer.addItem(newCard.renderNewCard())
-//     handleAddCard.close()
-//   }
-// }, popupAddCard)
-// handleAddCard.setEventListeners()
-
 const updAvatar = new PopupWithForm({
   callbackSubmitForm: (data) => {
     // const submitBtn = popupAvatarUpd.querySelector(validationConfig.submitButtonSelector)
